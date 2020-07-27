@@ -1,25 +1,31 @@
 import React from "react";
-import { useParams } from "react-router-dom"; // paramter 가져오는 Hook
+import { useParams } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
 const GET_MOVIE = gql`
-    query getMovie($id: Int!) {
-        movie(id: $id) {
-            id
-            title
-            medium_cover_image
-            description_intro 
-        }
+  query getMovie($id: Int!) {
+    movie(id: $id) {
+      id
+      title
+      medium_cover_image
+      description_intro
     }
+  }
 `;
 
 export default () => {
   const { id } = useParams();
   const { loading, data } = useQuery(GET_MOVIE, {
-    variables: { id }, // { id : id }
+    variables: { id: parseInt(id) },
   });
-  if (loading) return "loading";
-
-  if (data && data.movie) return data.movie.title;
+  if (loading) {
+    return "loading";
+  }
+  if (data) {
+    console.log(`data is ${data}`);
+  }
+  if (data && data.movie) {
+    return `${data.movie.title}`;
+  }
 };
