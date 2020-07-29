@@ -10,13 +10,13 @@ const client = new ApolloClient({
       isLiked: () => false,
     },
     Mutation: {
-      patato: (_, { id }, { cache }) => {
+      togglePotato: (_, { id, isLiked }, { cache }) => {
         console.log(cache);
         console.log(id);
         cache.writeData({
           id: `Movie:${id}`,
           data: {
-            isLiked: true,
+            isLiked: !isLiked,
           },
         });
       },

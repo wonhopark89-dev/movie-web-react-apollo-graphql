@@ -5,8 +5,8 @@ import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 
 const LIKE_MOVIE = gql`
-  mutation tomato($id: Int!) {
-    patato(id: $id) @client
+  mutation tomato($id: Int!, $isLiked: Boolean!) {
+    togglePotato(id: $id, isLiked: $isLiked) @client
   }
 `;
 
@@ -29,16 +29,14 @@ const Poster = styled.div`
 
 export default ({ id, bg, isLiked }) => {
   const [tomato] = useMutation(LIKE_MOVIE, {
-    variables: { id: parseInt(id) },
+    variables: { id: parseInt(id), isLiked },
   });
   return (
     <Container>
       <Link to={`/${id}`}>
         <Poster bg={bg} />
       </Link>
-      <button onClick={isLiked ? null : tomato}>
-        {isLiked ? "Unlike" : "Like"}
-      </button>
+      <button onClick={tomato}>{isLiked ? "Unlike" : "Like"}</button>
     </Container>
   );
 };
