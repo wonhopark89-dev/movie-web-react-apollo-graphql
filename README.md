@@ -1,2 +1,5 @@
-# apollo-2020
+# Learing React, Apollo, GraphQL
 
+[v] React
+[v] Apollo
+[v] GraphQL
